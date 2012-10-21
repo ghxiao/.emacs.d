@@ -1,0 +1,17 @@
+*elc
+.DS_Store
+starter-kit-2.*
+*.tar
+
+#*#
+.#*
+
+.smex-items
+elpa/
+places
+backups/
+auto-save-list/
+eshell/
+
+# only for emacs < 24.2
+package.el
