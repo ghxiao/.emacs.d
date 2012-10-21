@@ -9,7 +9,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit auctex cmake-mode nlinum autopair color-theme)
+(defvar my-packages '(starter-kit auctex cmake-mode nlinum autopair color-theme markdown-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -45,13 +45,11 @@
 ;; option -b highlights the current line; option -g opens Skim in the
 ;; background 
 (setq TeX-view-program-selection '((output-pdf "PDF Viewer"))) 
-(setq TeX-view-program-list '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b"))) 
+(setq TeX-view-program-list '(("PDF Viewer" 
+                               "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b"))) 
 (server-start); start emacs in server mode so that skim can talk to it
 
-(add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) ;turn on pdf-mode.  AUCTeX
-                                          ;will call pdflatex to
-                                          ;compile instead of latex.
-
+(add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
 
 (require 'uniquify) 
@@ -59,6 +57,9 @@
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
 
+(require 'linum)
+(global-linum-mode 1)
+(setq linum-format "%d ")
 
 (require 'cmake-mode)
 (setq auto-mode-alist
@@ -66,9 +67,11 @@
 		("\\.cmake\\'" . cmake-mode))
 	      auto-mode-alist))
 
-(require 'linum)
-(global-linum-mode 1)
-(setq linum-format "%d ")
+(require 'markdown-mode)
+(setq auto-mode-alist
+      (append '(("\\.md$" . markdown-mode)
+		("\\.markdown$'" . markdown-mode))
+	      auto-mode-alist))
 
 (require 'autopair)
 (autopair-global-mode) ;; to enable in all buffers
@@ -85,7 +88,5 @@
                                 )
                               auto-mode-alist))
 
-
-
 (require 'color-theme)
-(color-theme-gnome2)
+(color-theme-charcoal-black)
