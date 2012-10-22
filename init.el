@@ -18,6 +18,7 @@
 
 (setq-default cursor-type 'bar) 
 
+(setq ring-bell-function 'ignore)
 
 (getenv "PATH")
 (setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
@@ -90,3 +91,15 @@
 
 (require 'color-theme)
 (color-theme-charcoal-black)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((reftex-plug-into-AUCTeX . t) (TeX-auto-save . t) (TeX-parse-self . t) (TeX-debug-bad-boxes . t) (whitespace-line-column . 80) (lexical-binding . t)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
