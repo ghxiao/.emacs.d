@@ -47,7 +47,7 @@
 (setq TeX-view-program-selection '((output-pdf "PDF Viewer"))) 
 (setq TeX-view-program-list '(("PDF Viewer" 
                                "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b"))) 
-(server-start); start emacs in server mode so that skim can talk to it
+; (server-start); start emacs in server mode so that skim can talk to it
 
 (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
