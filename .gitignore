@@ -3,6 +3,7 @@
 starter-kit-2.*
 *.tar
 
+
 \#*#
 .#*
 
@@ -12,6 +13,7 @@ places
 backups/
 auto-save-list/
 eshell/
+url/
 
 # only for emacs < 24.2
 package.el
