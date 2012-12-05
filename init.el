@@ -101,6 +101,9 @@
 (add-to-list 'auto-mode-alist '("\\.sparql$" . sparql-mode))
 
 (add-to-list 'load-path "~/.emacs.d/vendor")
+(require 'dirtree)
+(require 'tree-mode)
+(require 'windata)
 (autoload 'dirtree "dirtree" "Add directory to tree view")
 
 (setq-default tab-width 4)
