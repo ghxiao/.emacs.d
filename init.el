@@ -38,7 +38,7 @@
 ;(setq TeX-view-program-list
 ;  '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline %q")))
 
-
+(require 'tex-site)
 (add-hook 'LaTeX-mode-hook (lambda ()
   (push
     '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
