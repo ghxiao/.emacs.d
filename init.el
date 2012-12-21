@@ -109,7 +109,16 @@
 (setq-default tab-width 4)
 
 (require 'color-theme)
-(color-theme-charcoal-black)
+
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized")
+; color-theme-solarized-[dark|light]
+(require 'color-theme-solarized)
+(color-theme-solarized-dark)
+; (color-theme-charcoal-black)
+
+
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
