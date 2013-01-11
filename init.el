@@ -12,7 +12,7 @@
   (package-refresh-contents))
 
 (defvar my-packages '(starter-kit auctex cmake-mode nlinum autopair 
-                                  color-theme markdown-mode)
+                      color-theme markdown-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -91,8 +91,8 @@
                            ; see `prolog-system' below for possible values
 (setq auto-mode-alist (append '(("\\.pl$" . prolog-mode)
                                 ("\\.asp$" . prolog-mode)
-				("\\.dl.?$" . prolog-mode)
-				("\\.lp$" . prolog-mode)
+                                ("\\.dl.?$" . prolog-mode)
+                                ("\\.lp$" . prolog-mode)
                                 )
                               auto-mode-alist))
 
@@ -127,3 +127,16 @@
  '(safe-local-variable-values (quote ((TeX-master . \.\./main) (reftex-plug-into-AUCTeX . t) (TeX-auto-save . t) (TeX-parse-self . t) (TeX-debug-bad-boxes . t) (whitespace-line-column . 80) (lexical-binding . t)))))
 
 
+;; predictive install location
+(add-to-list 'load-path "~/.emacs.d/vendor/predictive/")
+;; dictionary locations
+(add-to-list 'load-path "~/.emacs.d/vendor/predictive/latex/")
+(add-to-list 'load-path "~/.emacs.d/vendor/predictive/html/")
+;; load predictive package
+(require 'predictive)
+
+(defun revert-buffer-no-confirm ()
+    "Revert buffer without confirmation."
+    (interactive) (revert-buffer t t))
+
+(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm); 
