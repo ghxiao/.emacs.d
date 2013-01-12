@@ -139,4 +139,9 @@
     "Revert buffer without confirmation."
     (interactive) (revert-buffer t t))
 
-(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm); 
+(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm) 
+
+
+(setq viper-mode t)
+(require 'viper)
+
