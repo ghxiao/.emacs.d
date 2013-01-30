@@ -1,7 +1,17 @@
+
 (add-to-list 'load-path "~/.emacs.d")
+
+(getenv "PATH")
+(setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
+(setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
+
+; (load-file "~/opt/cedet-1.1/common/cedet.el")
+
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
 (menu-bar-mode 1) 
@@ -12,8 +22,15 @@
   (package-refresh-contents))
 
 (defvar my-packages '(starter-kit auctex cmake-mode nlinum autopair 
-                      color-theme markdown-mode)
+                                        ; ecb-snapshot
+                                  color-theme markdown-mode ;cedet
+                                  emacs-eclim company
+                                  auto-complete yasnippet tidy
+                                        ; ipython
+                                  epc deferred auto-complete jedi ein
+)
   "A list of packages to ensure are installed at launch.")
+
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -23,9 +40,13 @@
 
 (setq ring-bell-function 'ignore)
 
-(getenv "PATH")
-(setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
-(setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
+(require 'ein)
+(setq ein:use-auto-complete t)
+(setq ein:use-smartrep t)
+
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)
 
 (setq flyspell-issue-welcome-flag nil)
 (setq ispell-program-name "/usr/local/bin/aspell")
@@ -39,6 +60,11 @@
 (setq TeX-source-specials-view-start-server t)
 ;(setq TeX-view-program-list
 ;  '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline %q")))
+
+; (require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
+;(auto-complete-mode 1) 
 
 (require 'tex-site)
 ;(add-hook 'LaTeX-mode-hook (lambda ()
@@ -65,9 +91,14 @@
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
 
+; auto-complete walkaround for linum
+(ac-flyspell-workaround)
+(ac-linum-workaround)
+
+
 (require 'linum)
-(global-linum-mode 1)
-(setq linum-format "%d ")
+; (global-linum-mode 1)
+; (setq linum-format "%05d ")
 
 (require 'cmake-mode)
 (setq auto-mode-alist
@@ -109,7 +140,6 @@
 (autoload 'dirtree "dirtree" "Add directory to tree view")
 
 (setq-default tab-width 4)
-
 (require 'color-theme)
 
 (add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized")
@@ -118,12 +148,17 @@
 (color-theme-solarized-dark)
 ; (color-theme-charcoal-black)
 
+; (require 'color-theme-mods)
+; (color-theme-billc)
+; (bc-color-theme)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(TeX-command-list (quote (("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX") ("XeLaTeX" "xelatex %s" TeX-run-TeX nil t) ("TeX" "%(PDF)%(tex) %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (plain-tex-mode texinfo-mode ams-tex-mode) :help "Run plain TeX") ("Makeinfo" "makeinfo %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with Info output") ("Makeinfo HTML" "makeinfo --html %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with HTML output") ("AmSTeX" "%(PDF)amstex %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (ams-tex-mode) :help "Run AMSTeX") ("ConTeXt" "texexec --once --texutil %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt once") ("ConTeXt Full" "texexec %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt until completion") ("BibTeX" "bibtex %s" TeX-run-BibTeX nil t :help "Run BibTeX") ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer") ("Print" "%p" TeX-run-command t t :help "Print the file") ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command) ("File" "%(o?)dvips %d -o %f " TeX-run-command t t :help "Generate PostScript file") ("Index" "makeindex %s" TeX-run-command nil t :help "Create index file") ("Check" "lacheck %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for correctness") ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document") ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files") ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files") ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
+ '(ecb-options-version "2.40")
  '(safe-local-variable-values (quote ((TeX-master . \.\./main) (reftex-plug-into-AUCTeX . t) (TeX-auto-save . t) (TeX-parse-self . t) (TeX-debug-bad-boxes . t) (whitespace-line-column . 80) (lexical-binding . t)))))
 
 
