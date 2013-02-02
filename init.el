@@ -15,7 +15,7 @@
 
 (defvar my-packages '(starter-kit auctex cmake-mode nlinum autopair 
                                         ; ecb-snapshot
-                                  color-theme markdown-mode ;cedet
+                                  color-theme color-theme-solarized markdown-mode ;cedet
                                         ; emacs-eclim company
                                   auto-complete yasnippet tidy
                                         ; ipython 
@@ -241,7 +241,7 @@
 (require 'color-theme-solarized)
 
 (if (string= system-type "darwin")
-    (add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized")
+;    (add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized")
   ; color-theme-solarized-[dark|light]
   (color-theme-solarized-dark)
 )
