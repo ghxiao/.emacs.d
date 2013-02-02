@@ -1,12 +1,8 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Initialize Packages
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-to-list 'load-path "~/.emacs.d")
-
-(getenv "PATH")
-(setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
-(setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
-
-; (load-file "~/opt/cedet-1.1/common/cedet.el")
-
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
@@ -14,91 +10,169 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
-(menu-bar-mode 1) 
-
-(set-default-font "Monoca 14")
-
 (when (not package-archive-contents)
   (package-refresh-contents))
 
 (defvar my-packages '(starter-kit auctex cmake-mode nlinum autopair 
                                         ; ecb-snapshot
                                   color-theme markdown-mode ;cedet
-                                  emacs-eclim company
+                                        ; emacs-eclim company
                                   auto-complete yasnippet tidy
-                                        ; ipython
-                                  epc deferred auto-complete jedi ein
-)
+                                        ; ipython 
+                                  python-mode epc deferred auto-complete jedi ein
+                                  )
   "A list of packages to ensure are installed at launch.")
-
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 
-(setq-default cursor-type 'bar) 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Basci configuration
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; disable line hightling from starter-kit
+(remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
+(setq-default cursor-type 'bar) 
+(setq-default tab-width 4)
 (setq ring-bell-function 'ignore)
+(if (string= system-type "darwin")
+    (set-default-font "Monoca 12")
+)
+(menu-bar-mode 1) 
+
+(defun revert-buffer-no-confirm ()
+    "Revert buffer without confirmation."
+    (interactive) (revert-buffer t t))
+
+(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm) 
+
+(setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
+(setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto Complete
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'auto-complete-config)
+(ac-config-default)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Spell Checking
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq flyspell-issue-welcome-flag nil)
+(if (string= system-type "darwin")
+    (setq ispell-program-name "/usr/local/bin/aspell")
+)
+(if (string= system-type "gnu/linux")
+    (setq ispell-program-name "/usr/bin/aspell")
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Python 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'python-mode)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+
+(setq jedi:setup-keys t)
+(add-hook 'python-mode-hook 'jedi:setup)
 
 (require 'ein)
 (setq ein:use-auto-complete t)
 (setq ein:use-smartrep t)
 
-(autoload 'jedi:setup "jedi" nil t)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:setup-keys t)
+;; ipdb configuration
+(defun python-add-breakpoint ()
+  (interactive)
+  (py-newline-and-indent)
+  (insert "import ipdb; ipdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()"))
 
-(setq flyspell-issue-welcome-flag nil)
-(setq ispell-program-name "/usr/local/bin/aspell")
 
-(add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+; (define-key py-mode-map (kbd "C-c C-t") 'python-add-breakpoint)            
+(defun annotate-pdb ()
+  (interactive)
+  (highlight-lines-matching-regexp "import pdb")
+  (highlight-lines-matching-regexp "pdb.set_trace()"))
+
+(add-hook 'python-mode-hook 'annotate-pdb)
+
+(if (string= system-type "darwin")
+    (setenv "PYTHONPATH" "/usr/local/lib/python2.7/site-packages")
+  (setenv "PYTHONPATH" "/home/xiao/usr/local/lib/python2.7/site-packages")
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; LaTeX
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'tex-site)
 
 (setq reftex-plug-into-AUCTeX t)
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
 (setq TeX-source-specials-view-start-server t)
-;(setq TeX-view-program-list
-;  '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline %q")))
 
-; (require 'auto-complete)
-(require 'auto-complete-config)
-(ac-config-default)
-;(auto-complete-mode 1) 
+(add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+(add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) 
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex) 
 
-(require 'tex-site)
-;(add-hook 'LaTeX-mode-hook (lambda ()
-;  (push
-;    '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
-;      :help "Run latexmk on file")
-;    TeX-command-list)))
 (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LaTeX")))
+  (setq TeX-view-program-selection '((output-pdf "PDF Viewer"))) 
 
+(if (string= system-type "darwin" )
 ;; use Skim as default pdf viewer 
 ;; Skim's displayline is used for forward search (from .tex to .pdf) 
 ;; option -b highlights the current line; option -g opens Skim in the
 ;; background 
-(setq TeX-view-program-selection '((output-pdf "PDF Viewer"))) 
-(setq TeX-view-program-list '(("PDF Viewer" 
+  (setq TeX-view-program-list '(("PDF Viewer" 
                                "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b"))) 
-; (server-start); start emacs in server mode so that skim can talk to it
+)
 
-(add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) 
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(TeX-command-list (quote (("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX") ("XeLaTeX" "xelatex %s" TeX-run-TeX nil t) ("TeX" "%(PDF)%(tex) %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (plain-tex-mode texinfo-mode ams-tex-mode) :help "Run plain TeX") ("Makeinfo" "makeinfo %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with Info output") ("Makeinfo HTML" "makeinfo --html %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with HTML output") ("AmSTeX" "%(PDF)amstex %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (ams-tex-mode) :help "Run AMSTeX") ("ConTeXt" "texexec --once --texutil %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt once") ("ConTeXt Full" "texexec %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt until completion") ("BibTeX" "bibtex %s" TeX-run-BibTeX nil t :help "Run BibTeX") ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer") ("Print" "%p" TeX-run-command t t :help "Print the file") ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command) ("File" "%(o?)dvips %d -o %f " TeX-run-command t t :help "Generate PostScript file") ("Index" "makeindex %s" TeX-run-command nil t :help "Create index file") ("Check" "lacheck %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for correctness") ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document") ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files") ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files") ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
+ '(ecb-options-version "2.40")
+ '(safe-local-variable-values (quote ((TeX-master . \.\./main) (reftex-plug-into-AUCTeX . t) (TeX-auto-save . t) (TeX-parse-self . t) (TeX-debug-bad-boxes . t) (whitespace-line-column . 80) (lexical-binding . t)))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Uniquify
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'uniquify) 
 (setq 
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto complete
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; auto-complete walkaround for linum
 (ac-flyspell-workaround)
 (ac-linum-workaround)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; linum
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'linum)
 ; (global-linum-mode 1)
 ; (setq linum-format "%05d ")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; CMake
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'cmake-mode)
 (setq auto-mode-alist
@@ -106,14 +180,26 @@
 		("\\.cmake\\'" . cmake-mode))
 	      auto-mode-alist))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; markdown-mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (require 'markdown-mode)
 (setq auto-mode-alist
       (append '(("\\.md$" . markdown-mode)
 		("\\.markdown$'" . markdown-mode))
 	      auto-mode-alist))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; autopair
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (require 'autopair)
 (autopair-global-mode) ;; to enable in all buffers
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Prolog
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
 (autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
@@ -127,11 +213,18 @@
                                 )
                               auto-mode-alist))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; SPARQL
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-to-list 'load-path "~/.emacs.d/vendor/sparql-mode")
 (autoload 'sparql-mode "sparql-mode.el"
   "Major mode for editing SPARQL files" t)
 (add-to-list 'auto-mode-alist '("\\.sparql$" . sparql-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; DIR Tree
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (require 'dirtree)
@@ -139,42 +232,34 @@
 (require 'windata)
 (autoload 'dirtree "dirtree" "Add directory to tree view")
 
-(setq-default tab-width 4)
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Color Theme
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (require 'color-theme)
 
-(add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized")
-; color-theme-solarized-[dark|light]
 (require 'color-theme-solarized)
-(color-theme-solarized-dark)
-; (color-theme-charcoal-black)
 
+(if (string= system-type "darwin")
+    (add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized")
+  ; color-theme-solarized-[dark|light]
+  (color-theme-solarized-dark)
+)
 ; (require 'color-theme-mods)
 ; (color-theme-billc)
 ; (bc-color-theme)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(TeX-command-list (quote (("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX") ("XeLaTeX" "xelatex %s" TeX-run-TeX nil t) ("TeX" "%(PDF)%(tex) %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (plain-tex-mode texinfo-mode ams-tex-mode) :help "Run plain TeX") ("Makeinfo" "makeinfo %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with Info output") ("Makeinfo HTML" "makeinfo --html %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with HTML output") ("AmSTeX" "%(PDF)amstex %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (ams-tex-mode) :help "Run AMSTeX") ("ConTeXt" "texexec --once --texutil %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt once") ("ConTeXt Full" "texexec %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt until completion") ("BibTeX" "bibtex %s" TeX-run-BibTeX nil t :help "Run BibTeX") ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer") ("Print" "%p" TeX-run-command t t :help "Print the file") ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command) ("File" "%(o?)dvips %d -o %f " TeX-run-command t t :help "Generate PostScript file") ("Index" "makeindex %s" TeX-run-command nil t :help "Create index file") ("Check" "lacheck %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for correctness") ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document") ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files") ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files") ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
- '(ecb-options-version "2.40")
- '(safe-local-variable-values (quote ((TeX-master . \.\./main) (reftex-plug-into-AUCTeX . t) (TeX-auto-save . t) (TeX-parse-self . t) (TeX-debug-bad-boxes . t) (whitespace-line-column . 80) (lexical-binding . t)))))
 
 
-;; predictive install location
-(add-to-list 'load-path "~/.emacs.d/vendor/predictive/")
-;; dictionary locations
-(add-to-list 'load-path "~/.emacs.d/vendor/predictive/latex/")
-(add-to-list 'load-path "~/.emacs.d/vendor/predictive/html/")
-;; load predictive package
-(require 'predictive)
+;; ;; predictive install location
+;; (add-to-list 'load-path "~/.emacs.d/vendor/predictive/")
+;; ;; dictionary locations
+;; (add-to-list 'load-path "~/.emacs.d/vendor/predictive/latex/")
+;; (add-to-list 'load-path "~/.emacs.d/vendor/predictive/html/")
+;; ;; load predictive package
+;; (require 'predictive)
 
-(defun revert-buffer-no-confirm ()
-    "Revert buffer without confirmation."
-    (interactive) (revert-buffer t t))
 
-(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm) 
 
 ; (require 'viper)
 ; (setq viper-mode t)
@@ -228,20 +313,3 @@
 ;; (setq stack-trace-on-error t)
 ;; (require 'ecb)
 ;; (require 'ecb-autoloads)
-
-
-;;  (load-file "/Users/xiao/opt/emacs-for-python/epy-init.el")
-;;  (add-to-list 'load-path "/Users/xiao/opt/emacs-for-python") ;; tell where to
-;; ;; load the various files
-;;  (require 'epy-setup)      ;; It will setup other loads, it is
-;; ;; required!
-;;  (require 'epy-python)     ;; If you want the python facilities
-;; ;; [optional]
-;;  (require 'epy-completion) ;; If you want the autocompletion settings
-;; ;; [optional]
-;;  (require 'epy-editing)    ;; For configurations related to editing
-;; ;; [optional]
-;;  (require 'epy-bindings)   ;; For my suggested keybindings [optional]
-;;  (require 'epy-nose)       ;; For nose integration
-
-(setenv "PYTHONPATH" "/usr/local/lib/python2.7/site-packages")
