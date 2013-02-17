@@ -129,6 +129,8 @@
 (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LaTeX")))
   (setq TeX-view-program-selection '((output-pdf "PDF Viewer"))) 
 
+(setq TeX-save-query nil) ;;autosave before compiling
+
 (if (string= system-type "darwin" )
 ;; use Skim as default pdf viewer 
 ;; Skim's displayline is used for forward search (from .tex to .pdf) 
