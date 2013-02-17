@@ -22,6 +22,7 @@
                                   tidy
                                         ; ipython 
                                   python-mode epc deferred auto-complete jedi ein
+                                  dsvn
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -55,6 +56,19 @@
 
 (setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
 (setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; SVN
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(autoload 'svn-status "dsvn" "Run `svn status'." t)
+(autoload 'svn-update "dsvn" "Run `svn update'." t)
+;;
+;; This file integrates well with vc-svn, so you might want to do this
+;; as well:
+;;
+(require 'vc-svn)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto Complete
@@ -153,7 +167,7 @@
            (TeX-auto-save . t) 
            (TeX-parse-self . t)
            (TeX-debug-bad-boxes . t) 
-           (whitespace-line-column . 8 0) 
+           (whitespace-line-column . 80) 
            (lexical-binding . t))
           )
    )
