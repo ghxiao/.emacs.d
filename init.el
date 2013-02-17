@@ -36,13 +36,15 @@
 
 ; disable line hightling from starter-kit
 (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
+
 (setq-default cursor-type 'bar) 
 (setq-default tab-width 4)
+
 (setq ring-bell-function 'ignore)
 (if (string= system-type "darwin")
-;    (set-default-font "Monoca 12")
-    (set-default-font "Menlo 12")
+    (set-default-font "Monoca 12")
 )
+
 (menu-bar-mode 1) 
 
 (defun revert-buffer-no-confirm ()
@@ -141,14 +143,21 @@
 )
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(safe-local-variable-values 
    (quote ((TeX-master . \.\./main) 
-           (reftex-plug-into-AUCTeX . t) 
+           (reftex-plug-into-AUCTeX . t)
            (TeX-auto-save . t) 
-           (TeX-parse-self . t) 
+           (TeX-parse-self . t)
            (TeX-debug-bad-boxes . t) 
-           (whitespace-line-column . 80) 
-           (lexical-binding . t)))))
+           (whitespace-line-column . 8 0) 
+           (lexical-binding . t))
+          )
+   )
+)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -319,3 +328,4 @@
 ;; (setq stack-trace-on-error t)
 ;; (require 'ecb)
 ;; (require 'ecb-autoloads)
+
