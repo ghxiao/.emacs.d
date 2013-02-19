@@ -123,6 +123,7 @@
 
 (if (string= system-type "darwin")
     (setenv "PYTHONPATH" "/usr/local/lib/python2.7/site-packages")
+  ; linux server
   (setenv "PYTHONPATH" "/home/xiao/usr/local/lib/python2.7/site-packages")
 )
 
@@ -137,6 +138,10 @@
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
 (setq TeX-source-specials-view-start-server t)
+
+; LaTeX-math-mode
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(setq TeX-insert-braces nil)
 
 (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) 
@@ -270,9 +275,9 @@
 (require 'color-theme-solarized)
 
 (if (string= system-type "darwin")
-    (if (not (display-graphic-p))
+;    (if (not (display-graphic-p))
         (color-theme-solarized-dark)
-      )
+ ;     )
 )
 ; (require 'color-theme-mods)
 ; (color-theme-billc)
