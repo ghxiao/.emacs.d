@@ -131,7 +131,10 @@
 ;; LaTeX
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'tex-site)
+; Emacs 24 and ELPA 
+; If you install AUCTeX via ELPA in Emacs 24 the basic setup listed
+; above is not necessary. AUCTeX just works out of the box (at least
+; on Linux).
 
 (setq reftex-plug-into-AUCTeX t)
 (setq TeX-auto-save t)
