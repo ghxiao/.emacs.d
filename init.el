@@ -147,6 +147,13 @@
 (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) 
 
+; walkaround for dollar pair insertion in autopair-mode
+; see <http://code.google.com/p/autopair/issues/detail?id=18>
+(add-hook 'TeX-mode-hook
+          #'(lambda ()
+              (modify-syntax-entry ?$ "\"")
+	      (autopair-mode)))
+
 (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LaTeX")))
   (setq TeX-view-program-selection '((output-pdf "PDF Viewer"))) 
 
