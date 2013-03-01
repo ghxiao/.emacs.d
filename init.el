@@ -23,6 +23,7 @@
                                         ; ipython 
                                   python-mode epc deferred auto-complete jedi ein
                                   dsvn
+                                  helm
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -56,6 +57,15 @@
 
 (setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
 (setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; helm
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(helm-mode 1)
+(global-set-key (kbd "C-c h") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SVN
@@ -116,8 +126,10 @@
 ; (define-key py-mode-map (kbd "C-c C-t") 'python-add-breakpoint)            
 (defun annotate-pdb ()
   (interactive)
-  (highlight-lines-matching-regexp "import pdb")
-  (highlight-lines-matching-regexp "pdb.set_trace()"))
+;  (highlight-lines-matching-regexp "import pdb")
+;  (highlight-lines-matching-regexp "pdb.set_trace()")
+ (highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()")
+)
 
 (add-hook 'python-mode-hook 'annotate-pdb)
 
@@ -211,7 +223,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'linum)
-; (global-linum-mode 1)
+(global-linum-mode 1)
 ; (setq linum-format "%05d ")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
