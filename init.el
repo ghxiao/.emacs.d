@@ -24,6 +24,7 @@
                                   python-mode epc deferred auto-complete jedi ein
                                   dsvn
                                   helm
+                                  zenburn-theme   
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -294,13 +295,15 @@
 
 (require 'color-theme)
 
-(require 'color-theme-solarized)
+(load-theme 'zenburn t)
 
-(if (string= system-type "darwin")
-;    (if (not (display-graphic-p))
-        (color-theme-solarized-dark)
- ;     )
-)
+;; (require 'color-theme-solarized)
+
+;; (if (string= system-type "darwin")
+;; ;    (if (not (display-graphic-p))
+;;         (color-theme-solarized-dark)
+;;  ;     )
+;; )
 ; (require 'color-theme-mods)
 ; (color-theme-billc)
 ; (bc-color-theme)
