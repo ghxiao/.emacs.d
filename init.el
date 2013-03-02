@@ -13,7 +13,9 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit auctex cmake-mode nlinum autopair 
+(defvar my-packages '(starter-kit 
+                      auctex latex-pretty-symbols
+                                  cmake-mode nlinum autopair 
                                         ; ecb-snapshot
                                   color-theme color-theme-solarized markdown-mode ;cedet
                                         ; emacs-eclim company
@@ -24,7 +26,7 @@
                                   python-mode epc deferred auto-complete jedi ein
                                   dsvn
                                   helm
-                                  zenburn-theme   
+ ;                                 zenburn-theme   
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -66,7 +68,7 @@
 
 (helm-mode 1)
 (global-set-key (kbd "C-c h") 'helm-mini)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SVN
@@ -144,6 +146,8 @@
 ;; LaTeX
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+
 ; Emacs 24 and ELPA 
 ; If you install AUCTeX via ELPA in Emacs 24 the basic setup listed
 ; above is not necessary. AUCTeX just works out of the box (at least
@@ -162,6 +166,8 @@
 (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) 
+
+; (require 'latex-pretty-symbols)
 
 ; walkaround for dollar pair insertion in autopair-mode
 ; see <http://code.google.com/p/autopair/issues/detail?id=18>
@@ -200,6 +206,7 @@
           )
    )
 )
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -280,6 +287,22 @@
 (add-to-list 'auto-mode-alist '("\\.sparql$" . sparql-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; octave mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq inferior-octave-program "/opt/local/bin/octave")
+(autoload 'octave-mode "octave-mod" nil t)
+(setq auto-mode-alist
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+
+(add-hook 'octave-mode-hook
+          (lambda ()
+            (abbrev-mode 1)
+            (auto-fill-mode 1)
+            (if (eq window-system 'x)
+                (font-lock-mode 1))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DIR Tree
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -295,15 +318,15 @@
 
 (require 'color-theme)
 
-(load-theme 'zenburn t)
+;(load-theme 'zenburn t)
 
-;; (require 'color-theme-solarized)
+(require 'color-theme-solarized)
 
-;; (if (string= system-type "darwin")
-;; ;    (if (not (display-graphic-p))
-;;         (color-theme-solarized-dark)
-;;  ;     )
-;; )
+(if (string= system-type "darwin")
+;    (if (not (display-graphic-p))
+        (color-theme-solarized-dark)
+ ;     )
+)
 ; (require 'color-theme-mods)
 ; (color-theme-billc)
 ; (bc-color-theme)
@@ -327,7 +350,7 @@
 
 ;; Load CEDET.
 ;; See cedet/common/cedet.info for configuration details.
-;; IMPORTANT: For Emacs >= 23.2, you must place this *before* any
+;; IMORTANT: For Emacs >= 23.2, you must place this *before* any
 ;; CEDET component (including EIEIO) gets activated by another 
 ;; package (Gnus, auth-source, ...).
 
