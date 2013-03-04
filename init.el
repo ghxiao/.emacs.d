@@ -61,6 +61,8 @@
 (setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
 (setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
 
+; enable mouse in terminal mode
+(xterm-mouse-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helm
