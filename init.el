@@ -66,8 +66,8 @@
 ;; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(helm-mode 1)
-(global-set-key (kbd "C-c h") 'helm-mini)
+;(helm-mode 1)
+;(global-set-key (kbd "C-c h") 'helm-mini)
 ; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -195,19 +195,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values 
-   (quote ((TeX-master . \.\./main) 
-           (reftex-plug-into-AUCTeX . t)
-           (TeX-auto-save . t) 
-           (TeX-parse-self . t)
-           (TeX-debug-bad-boxes . t) 
-           (whitespace-line-column . 80) 
-           (lexical-binding . t))
-          )
-   )
-)
+ '(safe-local-variable-values (quote ((TeX-master . \.\./main) (reftex-plug-into-AUCTeX . t) (TeX-auto-save . t) (TeX-parse-self . t) (TeX-debug-bad-boxes . t) (whitespace-line-column . 80) (lexical-binding . t)))))
 
-
+;; (add-to-list 'helm-completing-read-handlers-alist
+;;              '(Tex-command-master . nil) )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Uniquify
@@ -396,3 +387,9 @@
 ;; (require 'ecb)
 ;; (require 'ecb-autoloads)
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
