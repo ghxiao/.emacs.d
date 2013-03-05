@@ -26,6 +26,7 @@
                                   python-mode epc deferred auto-complete jedi ein
                                   dsvn
                                   helm
+                                  xclip
  ;                                 zenburn-theme   
                                   )
   "A list of packages to ensure are installed at launch.")
@@ -75,6 +76,12 @@
   (setq mouse-sel-mode t)
 )
 
+; don't forget apt-get install xclip
+(xclip-mode 1)
+
+; see https://gist.github.com/daniel-nelson/1023272
+(require 'pbcopy)
+(turn-on-pbcopy)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helm
