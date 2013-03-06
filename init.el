@@ -14,7 +14,7 @@
   (package-refresh-contents))
 
 (defvar my-packages '(starter-kit 
-                      auctex latex-pretty-symbols
+                      auctex ;latex-pretty-symbols
                                   cmake-mode nlinum autopair 
                                         ; ecb-snapshot
                                   color-theme color-theme-solarized markdown-mode ;cedet
@@ -78,6 +78,8 @@
 
 ; don't forget apt-get install xclip
 (xclip-mode 1)
+
+(add-to-list 'load-path "~/.emacs.d/vendor")
 
 ; see https://gist.github.com/daniel-nelson/1023272
 (require 'pbcopy)
@@ -169,6 +171,8 @@
 
 
 
+
+
 ; Emacs 24 and ELPA 
 ; If you install AUCTeX via ELPA in Emacs 24 the basic setup listed
 ; above is not necessary. AUCTeX just works out of the box (at least
@@ -188,7 +192,7 @@
 (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) 
 
-; (require 'latex-pretty-symbols)
+(require 'latex-pretty-symbols)
 
 ; walkaround for dollar pair insertion in autopair-mode
 ; see <http://code.google.com/p/autopair/issues/detail?id=18>
@@ -318,7 +322,6 @@
 ;; DIR Tree
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'load-path "~/.emacs.d/vendor")
 (require 'dirtree)
 (require 'tree-mode)
 (require 'windata)
