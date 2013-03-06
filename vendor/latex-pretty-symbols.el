@@ -218,7 +218,7 @@ their unicode counterpart"
     (list (latex-escape-regex "exists")"∃")
     (list (latex-escape-regex "Diamond")"⋄")
     (list (latex-escape-regex "Box")"□")
-    (list (latex-escape-regex "models")"⊧")
+    (list (latex-escape-regex "models")"⊨")
     (list (latex-escape-regex "bot")"⊥")
     (list (latex-escape-regex "top")"⊤")
     
@@ -231,7 +231,7 @@ their unicode counterpart"
     (list "\\(\\\\{\\)" "⎨")
     
     (list (latex-escape-regex "mid")"|")
-    (list (latex-escape-regex "in")"∊")
+    (list (latex-escape-regex "in")"∈")
     (list (latex-escape-regex "notin")"∉")
     (list (latex-escape-regex "cup")"∪")
     (list (latex-escape-regex "cap")"∩")
@@ -507,7 +507,7 @@ their unicode counterpart"
     (list (latex-escape-regex "hookrightarrow") "↪")
     (list (latex-escape-regex "hookleftarrow") "↩")
     (list (latex-escape-regex "bowtie") "⋈")
-    (list (latex-escape-regex "models") "⊧")
+    (list (latex-escape-regex "models") "⊨")
     (list (latex-escape-regex "Longrightarrow") "⟹")
     (list (latex-escape-regex "longrightarrow") "⟶")
     (list (latex-escape-regex "longleftarrow") "⟵")
