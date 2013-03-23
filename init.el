@@ -16,10 +16,12 @@
 (defvar my-packages '(starter-kit 
                       auctex ;latex-pretty-symbols
                                   cmake-mode nlinum autopair 
-                                         ecb
-                                  color-theme color-theme-solarized markdown-mode ;cedet
+                                  ecb
+                                  color-theme color-theme-solarized  twilight-bright-theme color-theme-blackboard
+                                  markdown-mode
                                         ; emacs-eclim company
                                   auto-complete 
+                                  ac-math
                                         ;yasnippet 
                                   tidy
                                         ; ipython 
@@ -27,7 +29,6 @@
                                   dsvn
                                   helm
                                   xclip
- ;                                 zenburn-theme   
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -174,14 +175,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-
-
-
-; Emacs 24 and ELPA 
-; If you install AUCTeX via ELPA in Emacs 24 the basic setup listed
-; above is not necessary. AUCTeX just works out of the box (at least
-; on Linux).
-
 (setq reftex-plug-into-AUCTeX t)
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
@@ -196,7 +189,20 @@
 (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) 
 
-(require 'latex-pretty-symbols)
+; autocomplete for latex
+(require 'ac-math)
+
+(add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of `latex-mode`
+
+(defun ac-latex-mode-setup ()         ; add ac-sources to default ac-sources
+  (setq ac-sources
+     (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
+               ac-sources)))
+
+(add-hook 'latex-mode-hook 'ac-latex-mode-setup)
+(ac-flyspell-workaround)
+
+; (require 'latex-pretty-symbols)
 
 ; walkaround for dollar pair insertion in autopair-mode
 ; see <http://code.google.com/p/autopair/issues/detail?id=18>
@@ -211,21 +217,20 @@
 (setq TeX-save-query nil) ;;autosave before compiling
 
 (if (string= system-type "darwin" )
-;; use Skim as default pdf viewer 
-;; Skim's displayline is used for forward search (from .tex to .pdf) 
-;; option -b highlights the current line; option -g opens Skim in the
-;; background 
   (setq TeX-view-program-list '(("PDF Viewer" 
-                               "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b"))) 
+                               "/Applications/Skim.app/Contents/SharedSupport/displayline -r -b %n %o %b"))) 
 )
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(LaTeX-command "latex -synctex=1")
  '(ecb-options-version "2.40")
- '(safe-local-variable-values (quote ((TeX-master . \.\./main) (reftex-plug-into-AUCTeX . t) (TeX-auto-save . t) (TeX-parse-self . t) (TeX-debug-bad-boxes . t) (whitespace-line-column . 80) (lexical-binding . t)))))
+ '(safe-local-variable-values (quote ((TeX-master . \.\./main))))
+)
 
 ;; (add-to-list 'helm-completing-read-handlers-alist
 ;;              '(Tex-command-master . nil) )
@@ -341,12 +346,16 @@
 ;(load-theme 'zenburn t)
 
 (require 'color-theme-solarized)
+; (require 'twilight-bright-theme)
 
 (if (string= system-type "darwin")
-;    (if (not (display-graphic-p))
+    (if (not (display-graphic-p))
         (color-theme-solarized-dark)
- ;     )
+    )
 )
+
+; (require 'color-theme-blackboard)
+
 ; (require 'color-theme-mods)
 ; (color-theme-billc)
 ; (bc-color-theme)
@@ -368,47 +377,11 @@
 
 ; CEDET
 
-;; Load CEDET.
-;; See cedet/common/cedet.info for configuration details.
-;; IMORTANT: For Emacs >= 23.2, you must place this *before* any
-;; CEDET component (including EIEIO) gets activated by another 
-;; package (Gnus, auth-source, ...).
 
-; (semantic-load-enable-excessive-code-helpers)
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ECB
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Enable EDE (Project Management) features
-; (global-ede-mode 1)
-
-;; Enable EDE for a pre-existing C++ project
-;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
-
-
-;; Enabling Semantic (code-parsing, smart completion) features
-;; Select one of the following:
-
-;; * This enables the database and idle reparse engines
-;(semantic-load-enable-minimum-features)
-
-;; * This enables some tools useful for coding, such as summary mode,
-;;   imenu support, and the semantic navigator
-;(semantic-load-enable-code-helpers)
-
-;; * This enables even more coding tools such as intellisense mode,
-;;   decoration mode, and stickyfunc mode (plus regular code helpers)
-; (semantic-load-enable-gaudy-code-helpers)
-
-;; * This enables the use of Exuberant ctags if you have it installed.
-;;   If you use C++ templates or boost, you should NOT enable it.
-;; (semantic-load-enable-all-exuberent-ctags-support)
-;;   Or, use one of these two types of support.
-;;   Add support for new languages only via ctags.
-;; (semantic-load-enable-primary-exuberent-ctags-support)
-;;   Add support for using ctags as a backup parser.
-; (semantic-load-enable-secondary-exuberent-ctags-support)
-
-;; Enable SRecode (Template management) minor-mode.
-;; (global-srecode-minor-mode 1)
-
-;;  ecb 
 (require 'ecb-autoloads)
+(setq ecb-tip-of-the-day nil)
 
