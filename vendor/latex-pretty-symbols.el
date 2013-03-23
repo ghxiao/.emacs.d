@@ -207,6 +207,8 @@ their unicode counterpart"
     ;; logical ops
     (list (latex-escape-regex "land")"∧")
     (list (latex-escape-regex "lor")"∨")
+    (list (latex-escape-regex "wedge")"∧")
+    (list (latex-escape-regex "vee")"∨")
     (list (latex-escape-regex "neg")"¬")
     (list (latex-escape-regex "rightarrow")"→")
     (list (latex-escape-regex "leftarrow")"←")
@@ -244,6 +246,7 @@ their unicode counterpart"
     
     ;; generic math
     (list (latex-escape-regex "dots")"…")
+    (list (latex-escape-regex "ldots")"…")
     
     ;;Superscript
     (list (latex-escape-regex-sup "0")"⁰")
