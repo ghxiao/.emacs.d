@@ -16,7 +16,7 @@
 (defvar my-packages '(starter-kit 
                       auctex ;latex-pretty-symbols
                                   cmake-mode nlinum autopair 
-                                        ; ecb-snapshot
+                                         ecb
                                   color-theme color-theme-solarized markdown-mode ;cedet
                                         ; emacs-eclim company
                                   auto-complete 
@@ -84,6 +84,10 @@
 ; see https://gist.github.com/daniel-nelson/1023272
 (require 'pbcopy)
 (turn-on-pbcopy)
+
+;(tabbar-mode 1)
+;(custom-set-variables
+; '(tabbar-separator (quote (1.0))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helm
@@ -220,6 +224,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40")
  '(safe-local-variable-values (quote ((TeX-master . \.\./main) (reftex-plug-into-AUCTeX . t) (TeX-auto-save . t) (TeX-parse-self . t) (TeX-debug-bad-boxes . t) (whitespace-line-column . 80) (lexical-binding . t)))))
 
 ;; (add-to-list 'helm-completing-read-handlers-alist
@@ -404,16 +409,6 @@
 ;; Enable SRecode (Template management) minor-mode.
 ;; (global-srecode-minor-mode 1)
 
-;; ;; ecb 
-;; (add-to-list 'load-path
-;;              "~/opt/ecb-2.40")
-;; (setq stack-trace-on-error t)
-;; (require 'ecb)
-;; (require 'ecb-autoloads)
+;;  ecb 
+(require 'ecb-autoloads)
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
