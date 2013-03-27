@@ -17,7 +17,8 @@
                       auctex ;latex-pretty-symbols
                                   cmake-mode nlinum autopair 
                                   ecb
-                                  color-theme color-theme-solarized  twilight-bright-theme color-theme-blackboard
+                                  color-theme color-theme-solarized  twilight-bright-theme
+                                  color-theme-blackboard color-theme-sanityinc-tomorrow
                                   markdown-mode
                                         ; emacs-eclim company
                                   auto-complete 
@@ -354,28 +355,33 @@
     )
 )
 
+(require 'color-theme-sanityinc-tomorrow)
+(color-theme-sanityinc-tomorrow-eighties)
+
+(custom-set-faces
+ '(mode-line ((t (:foreground "#030303" :background "#bdbdbd" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666666" :box nil)))))
+
 ; (require 'color-theme-blackboard)
 
 ; (require 'color-theme-mods)
 ; (color-theme-billc)
 ; (bc-color-theme)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs powerline
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-;; ;; predictive install location
-;; (add-to-list 'load-path "~/.emacs.d/vendor/predictive/")
-;; ;; dictionary locations
-;; (add-to-list 'load-path "~/.emacs.d/vendor/predictive/latex/")
-;; (add-to-list 'load-path "~/.emacs.d/vendor/predictive/html/")
-;; ;; load predictive package
-;; (require 'predictive)
-
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
+(require 'powerline)
 
 
 ; (require 'viper)
 ; (setq viper-mode t)
 
 ; CEDET
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;

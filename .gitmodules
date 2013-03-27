@@ -4,3 +4,6 @@
 [submodule "vendor/sparql-mode"]
 	path = vendor/sparql-mode
 	url = git://github.com/candera/sparql-mode.git
+[submodule "vendor/emacs-powerline"]
+	path = vendor/emacs-powerline
+	url = git@github.com:jonathanchu/emacs-powerline.git
