@@ -103,13 +103,11 @@
 ;; SVN
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(autoload 'svn-status "dsvn" "Run `svn status'." t)
-(autoload 'svn-update "dsvn" "Run `svn update'." t)
-;;
-;; This file integrates well with vc-svn, so you might want to do this
-;; as well:
-;;
-(require 'vc-svn)
+(require 'vc-svn)                                   
+                                                    
+(autoload 'svn-status "dsvn" "Run `svn status'." t) 
+(autoload 'svn-update "dsvn" "Run `svn update'." t) 
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -230,8 +228,8 @@
  ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex -synctex=1")
  '(ecb-options-version "2.40")
- '(safe-local-variable-values (quote ((TeX-master . \.\./main))))
-)
+ '(exec-path (quote ("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/Cellar/emacs/24.3/libexec/emacs/24.3/x86_64-apple-darwin12.3.0")))
+ '(safe-local-variable-values (quote ((TeX-master . \.\./main)))))
 
 ;; (add-to-list 'helm-completing-read-handlers-alist
 ;;              '(Tex-command-master . nil) )
@@ -359,6 +357,10 @@
 (color-theme-sanityinc-tomorrow-eighties)
 
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(mode-line ((t (:foreground "#030303" :background "#bdbdbd" :box nil))))
  '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666666" :box nil)))))
 
