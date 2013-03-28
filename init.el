@@ -64,6 +64,8 @@
 (setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
 (setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
 
+(add-to-list 'exec-path "/usr/local/bin")
+
 ; enable mouse in terminal mode
 (unless window-system
   (require 'mouse)
@@ -173,7 +175,6 @@
 ;; LaTeX
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (setq reftex-plug-into-AUCTeX t)
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
@@ -228,7 +229,6 @@
  ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex -synctex=1")
  '(ecb-options-version "2.40")
- '(exec-path (quote ("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/Cellar/emacs/24.3/libexec/emacs/24.3/x86_64-apple-darwin12.3.0")))
  '(safe-local-variable-values (quote ((TeX-master . \.\./main)))))
 
 ;; (add-to-list 'helm-completing-read-handlers-alist
