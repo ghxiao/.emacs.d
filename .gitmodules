@@ -6,5 +6,5 @@
 	url = https://github.com/candera/sparql-mode.git
 [submodule "vendor/emacs-powerline"]
 	path = vendor/emacs-powerline
-	https://github.com/jonathanchu/emacs-powerline.git
+	url = https://github.com/jonathanchu/emacs-powerline.git
 	
