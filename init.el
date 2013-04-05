@@ -345,17 +345,25 @@
 
 ;(load-theme 'zenburn t)
 
-(require 'color-theme-solarized)
+
 ; (require 'twilight-bright-theme)
 
-(if (string= system-type "darwin")
-    (if (not (display-graphic-p))
-        (color-theme-solarized-dark)
-    )
+;; (if (string= system-type "darwin")
+;;     (if (not (display-graphic-p))
+;;         (color-theme-solarized-dark)
+;;     )
+;; )
+(require 'color-theme-solarized)
+
+
+(if window-system
+    ( (require 'color-theme-sanityinc-tomorrow)
+     (color-theme-sanityinc-tomorrow-eighties))
 )
 
-(require 'color-theme-sanityinc-tomorrow)
-(color-theme-sanityinc-tomorrow-eighties)
+(if (not window-system)   
+   (color-theme-solarized-dark)   
+)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -364,10 +372,6 @@
  ;; If there is more than one, they won't work right.
  '(mode-line ((t (:foreground "#030303" :background "#bdbdbd" :box nil))))
  '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666666" :box nil)))))
-
-
-
-
 
 ; (require 'color-theme-blackboard)
 
@@ -379,9 +383,11 @@
 ;; Emacs powerline
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
-(require 'powerline)
-
+(if window-system
+    (
+     (add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
+     (require 'powerline) )
+)
 
 ; (require 'viper)
 ; (setq viper-mode t)
