@@ -61,6 +61,8 @@
 
 (global-set-key (kbd "<f5>") 'revert-buffer-no-confirm) 
 
+(global-set-key [(control x) (k)] 'kill-this-buffer)
+
 (setenv "PATH"   (concat  "/usr/texbin" ":" (getenv "PATH")))
 (setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
 
