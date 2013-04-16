@@ -345,6 +345,8 @@
       (append
        (list
         '("\\.n3" . n3-mode)
+        '("\\.ttl" . n3-mode)
+        '("\\.ttl\\.owl" . n3-mode)
         )
        auto-mode-alist))
 
