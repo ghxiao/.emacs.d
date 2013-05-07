@@ -302,6 +302,7 @@
                                 ("\\.asp$" . prolog-mode)
                                 ("\\.dl.?$" . prolog-mode)
                                 ("\\.lp$" . prolog-mode)
+                                ("\\.hex$" . prolog-mode)
                                 )
                               auto-mode-alist))
 
