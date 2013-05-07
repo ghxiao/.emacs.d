@@ -99,8 +99,8 @@
 ;; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;(helm-mode 1)
-;(global-set-key (kbd "C-c h") 'helm-mini)
+; (helm-mode 1)
+; (global-set-key (kbd "C-c h") 'helm-mini)
 ; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -139,8 +139,8 @@
 ;; Python 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'python-mode)
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+;; (require 'python-mode)
+;; (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
 (setq jedi:setup-keys t)
 (add-hook 'python-mode-hook 'jedi:setup)
@@ -378,12 +378,11 @@
 ;;     )
 ;; )
 (require 'color-theme-solarized)
+(require 'color-theme-sanityinc-tomorrow)
 
-
-(if window-system
-    ( (require 'color-theme-sanityinc-tomorrow)
-     (color-theme-sanityinc-tomorrow-eighties))
-)
+;; (if window-system
+;;      (color-theme-sanityinc-tomorrow-eighties)
+;; )
 
 (if (not window-system)   
    (color-theme-solarized-dark)   
@@ -407,11 +406,12 @@
 ;; Emacs powerline
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(if window-system
-    (
+;(if window-system
+;    (
      (add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
-     (require 'powerline) )
-)
+     (require 'powerline) 
+;     )
+;)
 
 ; (require 'viper)
 ; (setq viper-mode t)
