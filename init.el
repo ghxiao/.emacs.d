@@ -408,12 +408,12 @@
 ;; Emacs powerline
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;(if window-system
-;    (
-     (add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
-     (require 'powerline) 
-;     )
-;)
+(if window-system
+    (progn
+      (add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
+      (require 'powerline) 
+      )
+)
 
 ; (require 'viper)
 ; (setq viper-mode t)
