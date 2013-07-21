@@ -43,6 +43,15 @@
 ;; Basci configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+(defun system-type-is-darwin ()
+  (interactive)
+  "Return true if system is darwin-based (Mac OS X)"
+  (string-equal system-type "darwin")
+)
+(if (system-type-is-darwin)
+    (setq confirm-kill-emacs 'y-or-n-p)
+)
 ; disable line hightling from starter-kit
 (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 
