@@ -60,7 +60,7 @@
 
 (setq ring-bell-function 'ignore)
 (if (string= system-type "darwin")
-    (set-default-font "Monoca 12")
+    (set-default-font "Monoca 15")
 )
 
 (menu-bar-mode 1) 
@@ -101,6 +101,12 @@
 (require 'pbcopy)
 (turn-on-pbcopy)
 
+;; Unbind Pesky Sleep Button
+(global-set-key "\C-z" nil)
+(global-set-key "\C-x\C-z" nil)
+
+
+
 ;(tabbar-mode 1)
 ;(custom-set-variables
 ; '(tabbar-separator (quote (1.0))))
@@ -109,9 +115,9 @@
 ;; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; (helm-mode 1)
-; (global-set-key (kbd "C-c h") 'helm-mini)
-; (global-set-key (kbd "C-x C-f") 'helm-find-files)
+(helm-mode 1)
+(global-set-key (kbd "C-c h") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SVN
@@ -247,8 +253,10 @@
  '(ecb-options-version "2.40")
  '(safe-local-variable-values (quote ((TeX-master . \.\./main)))))
 
-;; (add-to-list 'helm-completing-read-handlers-alist
-;;              '(Tex-command-master . nil) )
+(add-to-list 'helm-completing-read-handlers-alist
+              '(TeX-command-master) )
+(add-to-list 'helm-completing-read-handlers-alist
+              '(LaTeX-environment) )
 
 
 ;;set XeTeX mode in TeX/LaTeX
