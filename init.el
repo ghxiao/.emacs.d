@@ -101,6 +101,10 @@
 (require 'pbcopy)
 (turn-on-pbcopy)
 
+;; Unbind Pesky Sleep Button
+(global-set-key "\C-z" nil)
+(global-set-key "\C-x\C-z" nil)
+
 ;(tabbar-mode 1)
 ;(custom-set-variables
 ; '(tabbar-separator (quote (1.0))))
