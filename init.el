@@ -243,6 +243,12 @@
 
 (setq LaTeX-command "latex -synctex=1")
 
+
+;; So that RefTeX also recognizes \addbibresource. Note that you
+;; can't use $HOME in path for \addbibresource but that "~"
+;; works.
+(setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
