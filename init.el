@@ -60,7 +60,8 @@
 
 (setq ring-bell-function 'ignore)
 (if (string= system-type "darwin")
-    (set-default-font "Monoca 12")
+;    (set-default-font "Monoca 12")
+    (set-default-font "Consolas 15")
 )
 
 (menu-bar-mode 1) 
