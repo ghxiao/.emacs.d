@@ -26,7 +26,7 @@
                                         ;yasnippet 
                                   tidy
                                         ; ipython 
-                                  python-mode epc deferred auto-complete jedi ein
+                                  python-mode epc deferred auto-complete jedi jedi-direx ein
                                   dsvn
                                   helm
                                   xclip
@@ -61,6 +61,7 @@
 (setq ring-bell-function 'ignore)
 (if (string= system-type "darwin")
 ;    (set-default-font "Monoca 12")
+;    (set-default-font "Consolas 15")
     (set-default-font "Consolas 15")
 )
 
@@ -245,16 +246,30 @@
 (setq LaTeX-command "latex -synctex=1")
 
 
-;; So that RefTeX also recognizes \addbibresource. Note that you
-;; can't use $HOME in path for \addbibresource but that "~"
-;; works.
+;; RefTeX also recognizes \addbibresource. 
 (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
+
+;; ;; add two environments from subcaption
+;; (TeX-add-style-hook
+;;  "subtable"
+;;  (lambda ()
+;;    (LaTeX-add-environments
+;;     '("subtable" "width"))))
+
+;; (TeX-add-style-hook
+;;  "subfigure"
+;;  (lambda ()
+;;    (LaTeX-add-environments
+;;     '("subfigure" "width"))))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(custom-safe-themes (quote ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(ecb-options-version "2.40")
  '(safe-local-variable-values (quote ((TeX-master . \.\./main)))))
 
@@ -408,16 +423,17 @@
 ;;         (color-theme-solarized-dark)
 ;;     )
 ;; )
-(require 'color-theme-solarized)
+; (require 'color-theme-solarized)
+; 
 (require 'color-theme-sanityinc-tomorrow)
 
-;; (if window-system
+;; (If window-system
 ;;      (color-theme-sanityinc-tomorrow-eighties)
 ;; )
 
-(if (not window-system)   
-   (color-theme-solarized-dark)   
-)
+;(if (not window-system)   
+;   (color-theme-solarized-dark)   
+;)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -503,3 +519,4 @@
      (set-visited-file-name newname)
      (set-buffer-modified-p nil)
      t)))) 
+(put 'upcase-region 'disabled nil)
