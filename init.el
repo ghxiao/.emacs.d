@@ -31,6 +31,7 @@
                                   helm
                                   xclip
                                   sparql-mode
+                                  dired+
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -106,6 +107,11 @@
 ;; Unbind Pesky Sleep Button
 (global-set-key "\C-z" nil)
 (global-set-key "\C-x\C-z" nil)
+
+; dired+
+(define-key ctl-x-map   "d" 'diredp-dired-files)
+(define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)
+
 
 ;(tabbar-mode 1)
 ;(custom-set-variables
