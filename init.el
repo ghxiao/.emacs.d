@@ -17,8 +17,8 @@
                       auctex ;latex-pretty-symbols
                                   cmake-mode nlinum autopair 
                                   ecb
-                                  color-theme color-theme-solarized  twilight-bright-theme
-                                  color-theme-blackboard color-theme-sanityinc-tomorrow
+;                                  color-theme color-theme-solarized  twilight-bright-theme
+;                                  color-theme-blackboard color-theme-sanityinc-tomorrow
                                   markdown-mode
                                         ; emacs-eclim company
                                   auto-complete 
@@ -287,10 +287,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
- '(custom-safe-themes (quote ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+;  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+; '(custom-safe-themes (quote ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(ecb-options-version "2.40")
- '(safe-local-variable-values (quote ((TeX-master . \.\./main)))))
+ '(safe-local-variable-values (quote ((save-place . t) (TeX-master . \.\./main)))))
 
 ;; (add-to-list 'helm-completing-read-handlers-alist
 ;;              '(Tex-command-master . nil) )
@@ -430,7 +430,7 @@
 ;; Color Theme
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'color-theme)
+; (require 'color-theme)
 
 ;(load-theme 'zenburn t)
 
@@ -444,7 +444,7 @@
 ;; )
 ; (require 'color-theme-solarized)
 ; 
-(require 'color-theme-sanityinc-tomorrow)
+; (require 'color-theme-sanityinc-tomorrow)
 
 ;; (If window-system
 ;;      (color-theme-sanityinc-tomorrow-eighties)
@@ -539,3 +539,4 @@
      (set-buffer-modified-p nil)
      t)))) 
 (put 'upcase-region 'disabled nil)
+
