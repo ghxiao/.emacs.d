@@ -13,7 +13,8 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit 
+(defvar my-packages '(
+                                        ; starter-kit 
                       auctex ;latex-pretty-symbols
                                   cmake-mode nlinum autopair 
                                   ecb
@@ -64,7 +65,7 @@
 (if (string= system-type "darwin")
 ;    (set-default-font "Monoca 12")
 ;    (set-default-font "Consolas 15")
-    (set-default-font "Consolas 15")
+    (set-default-font "SourceCodePro 13")
 )
 
 (menu-bar-mode 1) 
