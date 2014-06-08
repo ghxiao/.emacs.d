@@ -32,6 +32,7 @@
                                   xclip
                                   sparql-mode
                                   dired+
+                                  evil
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -116,6 +117,14 @@
 
 ; hl-line
 (global-hl-line-mode)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; evil mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'evil)
+(evil-mode 1)
 
 ;(tabbar-mode 1)
 ;(custom-set-variables
