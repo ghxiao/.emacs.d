@@ -113,6 +113,10 @@
 (define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)
 
 
+
+; hl-line
+(global-hl-line-mode)
+
 ;(tabbar-mode 1)
 ;(custom-set-variables
 ; '(tabbar-separator (quote (1.0))))
