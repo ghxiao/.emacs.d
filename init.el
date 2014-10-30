@@ -117,11 +117,11 @@
 (define-key ctl-x-map   "d" 'diredp-dired-files)
 (define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)
 
-
-
 ; hl-line
 (global-hl-line-mode)
 
+; open file at cursor
+(ffap-bindings)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; evil mode
