@@ -2,7 +2,7 @@
 ;; Initialize Packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'load-path "~/.emacs.d")
+; (add-to-list 'load-path "~/.emacs.d")
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
@@ -17,7 +17,7 @@
                                         ; starter-kit 
                       auctex ;latex-pretty-symbols
                                   cmake-mode nlinum autopair 
-                                  ecb
+;                                  ecb
 ;                                  color-theme color-theme-solarized  twilight-bright-theme
 ;                                  color-theme-blackboard color-theme-sanityinc-tomorrow
                                   markdown-mode
@@ -29,11 +29,12 @@
                                         ; ipython 
                                   python-mode epc deferred auto-complete jedi jedi-direx ein
                                   dsvn
-                                  helm
+                                  ; helm
                                   xclip
                                   sparql-mode
                                   dired+
                                   evil
+				  magit
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -46,6 +47,7 @@
 ;; Basci configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq default-directory (concat (getenv "HOME") "/"))
 
 (defun system-type-is-darwin ()
   (interactive)
@@ -69,7 +71,8 @@
 )
 
 (menu-bar-mode 1) 
-
+(tool-bar-mode -1)
+ 
 (defun revert-buffer-no-confirm ()
     "Revert buffer without confirmation."
     (interactive) (revert-buffer t t))
@@ -265,6 +268,9 @@
 
 (setq LaTeX-command "latex -synctex=1")
 
+; <http://tex.stackexchange.com/questions/124246/uninformative-error-message-when-using-auctex>
+(setq LaTeX-command-style '(("" "%(PDF)%(latex) -file-line-error %S%(PDFout)")))
+
 
 ;; RefTeX also recognizes \addbibresource. 
 (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
@@ -294,8 +300,10 @@
  '(safe-local-variable-values (quote ((save-place . t) (TeX-master . \.\./main)))))
 
 ;; (add-to-list 'helm-completing-read-handlers-alist
-;;              '(Tex-command-master . nil) )
+;;               '(TeX-command-master . nil) )
 
+;; (add-to-list 'helm-completing-read-handlers-alist
+;;               '(LaTeX-environment . nil) )
 
 ;;set XeTeX mode in TeX/LaTeX
 (add-hook 'LaTeX-mode-hook (lambda()
@@ -493,8 +501,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(require 'ecb-autoloads)
-(setq ecb-tip-of-the-day nil)
+; (require 'ecb-autoloads)
+; (setq ecb-tip-of-the-day nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Games
@@ -541,3 +549,4 @@
      t)))) 
 (put 'upcase-region 'disabled nil)
 
+(setf inhibit-splash-screen t)
