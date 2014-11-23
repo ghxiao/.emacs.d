@@ -17,9 +17,11 @@
                                         ; starter-kit 
                       auctex ;latex-pretty-symbols
                                   cmake-mode nlinum autopair 
-;                                  ecb
-;                                  color-theme color-theme-solarized  twilight-bright-theme
-;                                  color-theme-blackboard color-theme-sanityinc-tomorrow
+;                                  ecb color-theme
+;                                  color-theme-solarized
+;                                  twilight-bright-theme
+;                                  color-theme-blackboard
+;                                  color-theme-sanityinc-tomorrow
                                   markdown-mode
                                         ; emacs-eclim company
                                   auto-complete 
@@ -34,7 +36,9 @@
                                   sparql-mode
                                   dired+
                                   evil
-				  magit
+								  magit
+								  tabbar
+								  tabbar-ruler
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -48,6 +52,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq default-directory (concat (getenv "HOME") "/"))
+
+(require 'cl)
 
 (defun system-type-is-darwin ()
   (interactive)
@@ -123,14 +129,17 @@
 ; open file at cursor
 (ffap-bindings)
 
+; (global-set-key [M-tab] 'next-buffer)
+; (global-set-key [M-S-tab] 'previous-buffer)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; evil mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'evil)
-(evil-mode 1)
+; (require 'evil)
+; (evil-mode 1)
 
-;(tabbar-mode 1)
+(tabbar-mode 1)
 ;(custom-set-variables
 ; '(tabbar-separator (quote (1.0))))
 
@@ -150,6 +159,17 @@
                                                     
 (autoload 'svn-status "dsvn" "Run `svn status'." t) 
 (autoload 'svn-update "dsvn" "Run `svn update'." t) 
+
+
+;; (require 'tabbar)
+
+(setq tabbar-ruler-global-tabbar t) ; If you want tabbar
+; (setq tabbar-ruler-global-ruler t) ; if you want a global ruler
+(setq tabbar-ruler-popup-menu t) ; If you want a popup menu.
+(setq tabbar-ruler-popup-toolbar t) ; If you want a popup toolbar
+; (setq tabbar-ruler-popup-scrollbar t) ; If you want to only show the
+                                      ; scroll bar when your mouse is moving.
+(require 'tabbar-ruler)
 
 
 
@@ -217,6 +237,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'tex-site)
+
+(setenv "TEXINPUTS"
+		(concat (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/latex" ":"          (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/img"))
 
 
 (setq reftex-plug-into-AUCTeX t)
