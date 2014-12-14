@@ -87,8 +87,6 @@
 )
 
 (show-paren-mode 1)
-
-
 (menu-bar-mode 1) 
 (tool-bar-mode -1)
  
@@ -140,16 +138,6 @@
 
 ; open file at cursor
 (ffap-bindings)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; evil mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; (require 'evil)
-; (evil-mode 1)
-
-
 
 (require 'recentf)
 (recentf-mode 1)
@@ -333,7 +321,6 @@
       (require 'powerline) 
       )
 )
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
