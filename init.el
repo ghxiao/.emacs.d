@@ -2,9 +2,11 @@
 ;; Initialize Packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; (add-to-list 'load-path "~/.emacs.d")
-(add-to-list 'load-path user-emacs-directory)
 
+;; Set path to dependencies
+(setq setup-lisp-dir
+      (expand-file-name "setup" user-emacs-directory))
+(add-to-list 'load-path setup-lisp-dir)
 
 (require 'package)
 (add-to-list 'package-archives
