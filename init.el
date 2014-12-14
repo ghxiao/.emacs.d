@@ -31,15 +31,12 @@
 ;                                  color-theme-blackboard
 ;                                  color-theme-sanityinc-tomorrow
                                   markdown-mode
-                                        ; emacs-eclim company
                                   auto-complete 
                                   ac-math
                                         ;yasnippet 
                                   tidy
-                                        ; ipython 
                                   python-mode epc deferred auto-complete jedi jedi-direx ein
                                   dsvn
-                                  ; helm
                                   xclip
                                   sparql-mode
                                   dired+
@@ -75,6 +72,8 @@
 (if (system-type-is-darwin)
     (setq confirm-kill-emacs 'y-or-n-p)
 )
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 
 (setq-default cursor-type 'bar) 
 (setq-default tab-width 4)
@@ -85,8 +84,6 @@
 ;    (set-default-font "Consolas 15")
     (set-default-font "SourceCodePro 13")
 )
-
-(defalias 'yes-or-no-p 'y-or-n-p)
 
 
 (show-paren-mode 1)
@@ -194,83 +191,13 @@
 ; (setq linum-format "%05d ")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; CMake
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'cmake-mode)
-(setq auto-mode-alist
-      (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-		("\\.cmake\\'" . cmake-mode))
-	      auto-mode-alist))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; markdown-mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'markdown-mode)
-(setq auto-mode-alist
-      (append '(("\\.md$" . markdown-mode)
-		("\\.markdown$'" . markdown-mode))
-	      auto-mode-alist))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; autopair
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'autopair)
 (autopair-global-mode) ;; to enable in all buffers
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Prolog
-;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
-(autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
-(autoload 'mercury-mode "prolog" "Major mode for editing Mercury programs." t)
-(setq prolog-system 'swi)  ; optional, the system you are using;
-                           ; see `prolog-system' below for possible values
-(setq auto-mode-alist (append '(("\\.pl$" . prolog-mode)
-                                ("\\.asp$" . prolog-mode)
-                                ("\\.dl.?$" . prolog-mode)
-                                ("\\.lp$" . prolog-mode)
-                                ("\\.hex$" . prolog-mode)
-                                )
-                              auto-mode-alist))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; SPARQL
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (add-to-list 'load-path "~/.emacs.d/vendor/sparql-mode")
-(autoload 'sparql-mode "sparql-mode.el"
-  "Major mode for editing SPARQL files" t)
-(add-to-list 'auto-mode-alist '("\\.sparql$" . sparql-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; octave mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(setq inferior-octave-program "/opt/local/bin/octave")
-(autoload 'octave-mode "octave-mod" nil t)
-(setq auto-mode-alist
-      (cons '("\\.m$" . octave-mode) auto-mode-alist))
-
-(add-hook 'octave-mode-hook
-          (lambda ()
-            (abbrev-mode 1)
-            (auto-fill-mode 1)
-            (if (eq window-system 'x)
-                (font-lock-mode 1))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; DIR Tree
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'dirtree)
-(require 'tree-mode)
-(require 'windata)
-(autoload 'dirtree "dirtree" "Add directory to tree view")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs powerline
@@ -282,47 +209,6 @@
       (require 'powerline) 
       )
 )
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Rename and Move file
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
-(defun rename-file-and-buffer (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
-    (if (not filename)
-        (message "Buffer '%s' is not visiting a file!" name)
-      (if (get-buffer new-name)
-          (message "A buffer named '%s' already exists!" new-name)
-        (progn
-          (rename-file name new-name 1)
-          (rename-buffer new-name)
-          (set-visited-file-name new-name)
-          (set-buffer-modified-p nil))))))
-
-(defun move-buffer-file (dir)
- "Moves both current buffer and file it's visiting to DIR." (interactive "DNew directory: ")
- (let* ((name (buffer-name))
-	 (filename (buffer-file-name))
-	 (dir
-	 (if (string-match dir "\\(?:/\\|\\\\)$")
-	 (substring dir 0 -1) dir))
-	 (newname (concat dir "/" name)))
-
- (if (not filename)
-	(message "Buffer '%s' is not visiting a file!" name)
-   (progn 	
-     (copy-file filename newname 1)
-     (delete-file filename)
-     (set-visited-file-name newname)
-     (set-buffer-modified-p nil)
-     t)))) 
-(put 'upcase-region 'disabled nil)
-
 
 ; <http://stackoverflow.com/questions/4076360/error-in-dired-sorting-on-os-x>o
 (when (eq system-type 'darwin)
@@ -340,4 +226,9 @@
 (require 'setup-tex)
 (require 'setup-python)
 (require 'setup-n3)
-
+(require 'setup-sparql)
+(require 'setup-octave)
+(require 'setup-prolog)
+(require 'setup-markdown)
+(require 'setup-cmake)
+(require 'setup-misc)
