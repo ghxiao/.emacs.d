@@ -71,8 +71,6 @@
 (if (system-type-is-darwin)
     (setq confirm-kill-emacs 'y-or-n-p)
 )
-; disable line hightling from starter-kit
-(remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 
 (setq-default cursor-type 'bar) 
 (setq-default tab-width 4)
@@ -239,20 +237,7 @@
   (setenv "PYTHONPATH" "/home/xiao/usr/local/lib/python2.7/site-packages")
 )
 
-
 (require 'setup-tex)
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-;  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
-; '(custom-safe-themes (quote ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
- '(ecb-options-version "2.40")
- '(safe-local-variable-values (quote ((save-place . t) (TeX-master . \.\./main)))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Uniquify
