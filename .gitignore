@@ -16,3 +16,6 @@ tramp
 
 # only for emacs < 24.2
 package.el
+
+# for tabbar mode
+SessionDesktop.el

@@ -129,8 +129,8 @@
 ; open file at cursor
 (ffap-bindings)
 
-; (global-set-key [M-tab] 'next-buffer)
-; (global-set-key [M-S-tab] 'previous-buffer)
+(global-set-key [C-tab] 'next-buffer)
+(global-set-key [C-S-tab] 'previous-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; evil mode
@@ -239,7 +239,7 @@
 (require 'tex-site)
 
 (setenv "TEXINPUTS"
-		(concat (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/latex" ":"          (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/img"))
+  		(concat (getenv "TEXINPUTS") ":" "." ":" (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/latex" ":"          (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/img"))
 
 
 (setq reftex-plug-into-AUCTeX t)
