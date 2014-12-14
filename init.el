@@ -59,6 +59,10 @@
 ;; Basci configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setf inhibit-splash-screen t)
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
 (setq default-directory (concat (getenv "HOME") "/"))
 
 (require 'cl)
@@ -81,6 +85,9 @@
 ;    (set-default-font "Consolas 15")
     (set-default-font "SourceCodePro 13")
 )
+
+(show-paren-mode 1)
+
 
 (menu-bar-mode 1) 
 (tool-bar-mode -1)
