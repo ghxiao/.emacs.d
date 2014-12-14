@@ -1,12 +1,15 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Initialize Packages
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 ;; Set path to dependencies
 (setq setup-lisp-dir
       (expand-file-name "setup" user-emacs-directory))
 (add-to-list 'load-path setup-lisp-dir)
+
+;; Keep emacs Custom-settings in separate file
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Initialize Packages
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'package)
 (add-to-list 'package-archives
@@ -19,7 +22,7 @@
   (package-refresh-contents))
 
 (defvar my-packages '(
-                                        ; starter-kit 
+                      ; starter-kit 
                       auctex ;latex-pretty-symbols
                                   cmake-mode nlinum autopair 
 ;                                  ecb color-theme
@@ -404,13 +407,6 @@
 ;   (color-theme-solarized-dark)   
 ;)
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(mode-line ((t (:foreground "#030303" :background "#bdbdbd" :box nil))))
- '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666666" :box nil)))))
 
 ; (require 'color-theme-blackboard)
 
