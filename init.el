@@ -141,8 +141,6 @@
 ; open file at cursor
 (ffap-bindings)
 
-(global-set-key [C-tab] 'next-buffer)
-(global-set-key [C-S-tab] 'previous-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; evil mode
@@ -151,7 +149,7 @@
 ; (require 'evil)
 ; (evil-mode 1)
 
-(tabbar-mode 1)
+
 
 (require 'recentf)
 (recentf-mode 1)
@@ -176,15 +174,6 @@
 (autoload 'svn-update "dsvn" "Run `svn update'." t) 
 
 
-;; (require 'tabbar)
-
-(setq tabbar-ruler-global-tabbar t) ; If you want tabbar
-; (setq tabbar-ruler-global-ruler t) ; if you want a global ruler
-(setq tabbar-ruler-popup-menu t) ; If you want a popup menu.
-(setq tabbar-ruler-popup-toolbar t) ; If you want a popup toolbar
-; (setq tabbar-ruler-popup-scrollbar t) ; If you want to only show the
-                                      ; scroll bar when your mouse is moving.
-(require 'tabbar-ruler)
 
 
 
@@ -208,9 +197,6 @@
     (setq ispell-program-name "/usr/bin/aspell")
 )
 
-(require 'setup-python)
-
-(require 'setup-tex)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Uniquify
@@ -338,41 +324,6 @@
 (autoload 'dirtree "dirtree" "Add directory to tree view")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Color Theme
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; (require 'color-theme)
-
-;(load-theme 'zenburn t)
-
-
-; (require 'twilight-bright-theme)
-
-;; (if (string= system-type "darwin")
-;;     (if (not (display-graphic-p))
-;;         (color-theme-solarized-dark)
-;;     )
-;; )
-; (require 'color-theme-solarized)
-; 
-; (require 'color-theme-sanityinc-tomorrow)
-
-;; (If window-system
-;;      (color-theme-sanityinc-tomorrow-eighties)
-;; )
-
-;(if (not window-system)   
-;   (color-theme-solarized-dark)   
-;)
-
-
-; (require 'color-theme-blackboard)
-
-; (require 'color-theme-mods)
-; (color-theme-billc)
-; (bc-color-theme)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs powerline
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -383,27 +334,7 @@
       )
 )
 
-; (require 'viper)
-; (setq viper-mode t)
 
-; CEDET
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ECB
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-; (require 'ecb-autoloads)
-; (setq ecb-tip-of-the-day nil)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Games
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(setq tetris-score-file "~/.emacs.d/tetris-scores")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Rename and Move file
@@ -445,3 +376,8 @@
 (put 'upcase-region 'disabled nil)
 
 (setf inhibit-splash-screen t)
+
+
+(require 'setup-tabbar)
+(require 'setup-python)
+(require 'setup-tex)
