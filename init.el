@@ -162,9 +162,6 @@
 (autoload 'svn-update "dsvn" "Run `svn update'." t) 
 
 
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto Complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;

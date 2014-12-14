@@ -7,7 +7,9 @@
 (require 'tex-site)
 
 (setenv "TEXINPUTS"
-  		(concat (getenv "TEXINPUTS") ":" "." ":" (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/latex" ":"          (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/img"))
+  		(concat (getenv "TEXINPUTS")
+				":" (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/latex"
+				":" (getenv "HOME") "/Dropbox/Optique/osloSVN/LaTeX/img"))
 
 
 (setq reftex-plug-into-AUCTeX t)
@@ -66,19 +68,6 @@
 ;; RefTeX also recognizes \addbibresource. 
 (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
 
-;; ;; add two environments from subcaption
-;; (TeX-add-style-hook
-;;  "subtable"
-;;  (lambda ()
-;;    (LaTeX-add-environments
-;;     '("subtable" "width"))))
-
-;; (TeX-add-style-hook
-;;  "subfigure"
-;;  (lambda ()
-;;    (LaTeX-add-environments
-;;     '("subfigure" "width"))))
-
 ;;set XeTeX mode in TeX/LaTeX
 (add-hook 'LaTeX-mode-hook (lambda()
                              (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t)))
@@ -90,9 +79,4 @@
 ;; (add-to-list 'helm-completing-read-handlers-alist
 ;;               '(LaTeX-environment . nil) )
 
-
-
 (provide 'setup-tex)
-
-
-										
