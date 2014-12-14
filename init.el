@@ -86,6 +86,9 @@
     (set-default-font "SourceCodePro 13")
 )
 
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+
 (show-paren-mode 1)
 (menu-bar-mode 1) 
 (tool-bar-mode -1)
@@ -169,19 +172,9 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Spell Checking
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(setq flyspell-issue-welcome-flag nil)
-(if (string= system-type "darwin")
-    (setq ispell-program-name "/usr/local/bin/aspell")
-)
-(if (string= system-type "gnu/linux")
-    (setq ispell-program-name "/usr/bin/aspell")
-)
-
+; auto-complete walkaround for linum
+(ac-flyspell-workaround)
+(ac-linum-workaround)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Uniquify
@@ -191,14 +184,6 @@
 (setq 
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Auto complete
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; auto-complete walkaround for linum
-(ac-flyspell-workaround)
-(ac-linum-workaround)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; linum
@@ -277,27 +262,6 @@
             (if (eq window-system 'x)
                 (font-lock-mode 1))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; N3 Mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; https://github.com/kurtjx/n3-mode-for-emacs
-
-(add-to-list 'load-path "~/.emacs.d/ventor/n3-mode.el")
-(autoload 'n3-mode "n3-mode" "Major mode for OWL or N3 files" t)
-
-;; Turn on font lock when in n3 mode
-(add-hook 'n3-mode-hook
-          'turn-on-font-lock)
-
-(setq auto-mode-alist
-      (append
-       (list
-        '("\\.n3" . n3-mode)
-        '("\\.ttl" . n3-mode)
-        '("\\.ttl\\.owl" . n3-mode)
-        )
-       auto-mode-alist))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DIR Tree
@@ -359,9 +323,21 @@
      t)))) 
 (put 'upcase-region 'disabled nil)
 
-(setf inhibit-splash-screen t)
 
+; <http://stackoverflow.com/questions/4076360/error-in-dired-sorting-on-os-x>o
+(when (eq system-type 'darwin)
+  (require 'ls-lisp)
+  (setq ls-lisp-use-insert-directory-program nil))
 
+;; Hide DOT files with M-o
+;(require 'dired-x)
+;(setq-default dired-omit-files-p t) ; Buffer-local variable
+;(setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))
+
+  
 (require 'setup-tabbar)
-(require 'setup-python)
+(require 'setup-spell)
 (require 'setup-tex)
+(require 'setup-python)
+(require 'setup-n3)
+
