@@ -73,6 +73,11 @@
                              (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t)))
 )
 
+;; auxtex-latexmk
+(require 'auctex-latexmk)
+(auctex-latexmk-setup)
+
+
 ;; (add-to-list 'helm-completing-read-handlers-alist
 ;;               '(TeX-command-master . nil) )
 
