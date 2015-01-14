@@ -24,6 +24,7 @@
 (defvar my-packages '(
                       ; starter-kit 
                       auctex ;latex-pretty-symbols
+					  auctex-latexmk
                                   cmake-mode nlinum autopair 
 ;                                  ecb color-theme
 ;                                  color-theme-solarized
@@ -44,6 +45,7 @@
 								  magit
 								  tabbar
 								  tabbar-ruler
+								  scala-mode2
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -144,6 +146,13 @@
 (setq recentf-max-menu-items 25)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
+; <http://stackoverflow.com/questions/2068697/emacs-is-slow-opening-recent-files>
+(setq recentf-keep '(file-remote-p file-readable-p))
+
+
+;; Magit rules!
+(global-set-key (kbd "C-x g") 'magit-status)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -151,6 +160,7 @@
 ; (helm-mode 1)
 ; (global-set-key (kbd "C-c h") 'helm-mini)
 ; (global-set-key (kbd "C-x C-f") 'helm-find-files)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SVN
