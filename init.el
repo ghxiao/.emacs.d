@@ -58,6 +58,8 @@
 ;; Basci configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(delete-selection-mode 1)
+
 (setf inhibit-splash-screen t)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -82,9 +84,11 @@
 
 (setq ring-bell-function 'ignore)
 (if (string= system-type "darwin")
+	  	;	(set-default-font "Inconsolata 13")
+		(set-default-font "Menlo 14")
 ;    (set-default-font "Monoca 12")
 ;    (set-default-font "Consolas 15")
-    (set-default-font "SourceCodePro 13")
+;    (set-default-font "SourceCodePro 13")
 )
 
 
@@ -135,8 +139,10 @@
 (define-key ctl-x-map   "d" 'diredp-dired-files)
 (define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)
 
-; hl-line
-(global-hl-line-mode)
+										; hl-line
+(if window-system
+	(global-hl-line-mode)
+ )
 
 ; open file at cursor
 (ffap-bindings)
@@ -144,6 +150,7 @@
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
+(setq recentf-max-saved-items 200)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 ; <http://stackoverflow.com/questions/2068697/emacs-is-slow-opening-recent-files>
@@ -228,7 +235,43 @@
 ;; Hide DOT files with M-o
 ;(require 'dired-x)
 ;(setq-default dired-omit-files-p t) ; Buffer-local variable
-;(setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))
+										;(setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))
+
+ ;; (defun my-ibuffer-hook ()
+    
+ ;;      ;; add another sorting method for ibuffer (allow the grouping of
+ ;;      ;; filenames and dired buffers
+    
+ ;;      (ibuffer-define-sorter pathname
+ ;;         (:documentation
+ ;;          "Sort the buffers by their pathname."
+ ;;          :description "path")
+ ;;         (string-lessp (with-current-buffer (car a)
+ ;;                         (or buffer-file-name
+ ;;                             (if (eq major-mode 'dired-mode)
+ ;;                                 (expand-file-name dired-directory))
+ ;;                             ;; so that all non pathnames are at the end
+ ;;                             "~"))
+ ;;                       (with-current-buffer (car b)
+ ;;                         (or buffer-file-name
+ ;;                             (if (eq major-mode 'dired-mode)
+ ;;                                 (expand-file-name dired-directory))
+ ;;                             ;; so that all non pathnames are at the end
+ ;;                             "~"))))
+    
+ ;;      ;; add key binding
+    
+ ;;      (define-key ibuffer-mode-map (kbd "s p") 'ibuffer-do-sort-by-pathname))
+    
+ ;;    (add-hook 'ibuffer-mode-hooks 'my-ibuffer-hook)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; IDO
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'ido)
+(ido-mode t)
+
 
   
 (require 'setup-tabbar)
