@@ -46,6 +46,7 @@
 								  tabbar
 								  tabbar-ruler
 								  scala-mode2
+								  flx-ido
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -232,6 +233,19 @@
   (require 'ls-lisp)
   (setq ls-lisp-use-insert-directory-program nil))
 
+; <http://stackoverflow.com/questions/3376863/unable-to-type-braces-and-square-braces-in-emacs>
+(when (eq system-type 'darwin)
+  (setq default-input-method "MacOSX")
+)
+
+;; handle emacs utf-8 input
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(setenv "LANG" "en_US.UTF-8")
+
+
+
 ;; Hide DOT files with M-o
 ;(require 'dired-x)
 ;(setq-default dired-omit-files-p t) ; Buffer-local variable
@@ -272,6 +286,12 @@
 (require 'ido)
 (ido-mode t)
 
+(require 'flx-ido)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
 
   
 (require 'setup-tabbar)
