@@ -17,5 +17,10 @@ tramp
 # only for emacs < 24.2
 package.el
 
+ido.last
+recentf
+ido.last
+
 # for tabbar mode
 SessionDesktop.el
+

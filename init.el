@@ -47,6 +47,7 @@
 								  tabbar-ruler
 								  scala-mode2
 								  flx-ido
+								  chinese-fonts-setup
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -84,13 +85,17 @@
 (setq-default tab-width 4)
 
 (setq ring-bell-function 'ignore)
-(if (string= system-type "darwin")
-	  	;	(set-default-font "Inconsolata 13")
-		(set-default-font "Menlo 14")
-;    (set-default-font "Monoca 12")
-;    (set-default-font "Consolas 15")
-;    (set-default-font "SourceCodePro 13")
-)
+;; (if (string= system-type "darwin")
+;; 	  	;	(set-default-font "Inconsolata 13")
+;; 		(set-default-font "Menlo 14")
+;; ;    (set-default-font "Monoca 12")
+;; ;    (set-default-font "Consolas 15")
+;; ;    (set-default-font "SourceCodePro 13")
+;;   )
+
+(require 'chinese-fonts-setup)
+
+
 
 
 (show-paren-mode 1)
