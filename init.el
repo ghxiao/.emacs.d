@@ -62,6 +62,9 @@
 
 (delete-selection-mode 1)
 
+; <http://superuser.com/questions/277956/emacs-variable-to-open-with-in-original-frame>
+(setq ns-pop-up-frames nil)
+
 (setf inhibit-splash-screen t)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
