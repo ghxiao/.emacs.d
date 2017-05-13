@@ -43,11 +43,12 @@
                                   dired+
                                   evil
 								  magit
-								  tabbar
-								  tabbar-ruler
+;								  tabbar
+;								  tabbar-ruler
 								  scala-mode2
 								  flx-ido
 								  chinese-fonts-setup
+								  openwith
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -83,6 +84,8 @@
 )
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+; disable backup files foo~
+(setq make-backup-files nil)
 
 (setq-default cursor-type 'bar) 
 (setq-default tab-width 4)
@@ -98,6 +101,8 @@
 
 (require 'chinese-fonts-setup)
 
+(require 'openwith)
+(openwith-mode t)
 
 
 
@@ -109,7 +114,9 @@
     "Revert buffer without confirmation."
     (interactive) (revert-buffer t t))
 
-(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm) 
+(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm)
+
+(global-set-key (kbd "<f6>") 'ibuffer) 
 
 (global-set-key [(control x) (k)] 'kill-this-buffer)
 
@@ -161,6 +168,28 @@
 (setq recentf-max-menu-items 25)
 (setq recentf-max-saved-items 200)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+; <https://www.emacswiki.org/emacs/RecentFiles>
+(defsubst file-was-visible-p (file)
+  "Return non-nil if FILE's buffer exists and has been displayed."
+  (let ((buf (find-buffer-visiting file)))
+    (if buf
+      (let ((display-count (buffer-local-value 'buffer-display-count buf)))
+        (if (> display-count 0) display-count nil)))))
+
+(defsubst keep-default-and-visible-recentf-p (file)
+  "Return non-nil if recentf would, by default, keep FILE, and
+FILE has been displayed."
+  (if (recentf-keep-default-predicate file)
+      (file-was-visible-p file)))
+
+;; When a buffer is closed, remove the associated file from the recentf
+;; list if (1) recentf would have, by default, removed the file, or
+;; (2) the buffer was never displayed.  This is useful because, for
+;; example, CEDET opens a lot of files in the background to generate
+;; its tags database, etc.
+(setq recentf-keep '(keep-default-and-visible-recentf-p))
+
 
 ; <http://stackoverflow.com/questions/2068697/emacs-is-slow-opening-recent-files>
 (setq recentf-keep '(file-remote-p file-readable-p))
@@ -302,7 +331,7 @@
 (setq ido-use-faces nil)
 
   
-(require 'setup-tabbar)
+; (require 'setup-tabbar)
 (require 'setup-spell)
 (require 'setup-tex)
 (require 'setup-python)
