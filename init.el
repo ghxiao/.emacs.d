@@ -69,6 +69,10 @@
 (setf inhibit-splash-screen t)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(require 'ibuf-ext)
+(add-to-list 'ibuffer-never-show-predicates "^\\*")
+
+
 
 (setq default-directory (concat (getenv "HOME") "/"))
 
