@@ -13,9 +13,17 @@
 
 (require 'package)
 (add-to-list 'package-archives
+             '("gnu" . "http://elpa.gnu.org/packages/") t)
+
+(add-to-list 'package-archives
+	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+
+(add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -45,10 +53,12 @@
 								  magit
 ;								  tabbar
 ;								  tabbar-ruler
-								  scala-mode2
+;								  scala-mode2
 								  flx-ido
 								  chinese-fonts-setup
 								  openwith
+								  haskell-mode
+								  idris-mode
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -108,8 +118,6 @@
 (require 'openwith)
 (openwith-mode t)
 
-
-
 (show-paren-mode 1)
 (menu-bar-mode 1) 
 (tool-bar-mode -1)
@@ -127,6 +135,8 @@
 (setenv "PATH"   (concat  "/usr/local/bin" ":" (getenv "PATH")))
 
 (add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "~/.cabal/bin")
+(add-to-list 'exec-path "~/Library/Haskell/bin")
 
 ; enable mouse in terminal mode
 (unless window-system
@@ -346,3 +356,5 @@ FILE has been displayed."
 (require 'setup-markdown)
 (require 'setup-cmake)
 (require 'setup-misc)
+
+(cfs-increase-fontsize)
