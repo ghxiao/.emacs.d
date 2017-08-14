@@ -35,7 +35,7 @@
 					  auctex-latexmk
                                   cmake-mode nlinum autopair 
 ;                                  ecb color-theme
-;                                  color-theme-solarized
+                                  solarized-theme
 ;                                  twilight-bright-theme
 ;                                  color-theme-blackboard
 ;                                  color-theme-sanityinc-tomorrow
@@ -83,7 +83,6 @@
 (add-to-list 'ibuffer-never-show-predicates "^\\*")
 
 
-
 (setq default-directory (concat (getenv "HOME") "/"))
 
 (require 'cl)
@@ -113,7 +112,10 @@
 ;; ;    (set-default-font "SourceCodePro 13")
 ;;   )
 
+(load-theme 'solarized-dark t)
+
 (require 'chinese-fonts-setup)
+(cnfonts-increase-fontsize)
 
 (require 'openwith)
 (openwith-mode t)
@@ -272,12 +274,12 @@ FILE has been displayed."
 ;; Emacs powerline
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(if window-system
-    (progn
-      (add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
-      (require 'powerline) 
-      )
-)
+;(if window-system
+ ;   (progn
+ ;     (add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
+ ;     (require 'powerline) 
+;      )
+;)
 
 ; <http://stackoverflow.com/questions/4076360/error-in-dired-sorting-on-os-x>o
 (when (eq system-type 'darwin)
@@ -356,5 +358,3 @@ FILE has been displayed."
 (require 'setup-markdown)
 (require 'setup-cmake)
 (require 'setup-misc)
-
-(cfs-increase-fontsize)
