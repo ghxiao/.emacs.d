@@ -119,6 +119,7 @@
 
 (require 'openwith)
 (openwith-mode t)
+(setq openwith-associations '(("\\.pdf\\'" "open" (file))))
 
 (show-paren-mode 1)
 (menu-bar-mode 1) 
