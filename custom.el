@@ -11,11 +11,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cfs--current-profile-name "profile1" t)
- '(cfs--fontsize-steps (quote (5 4 4)) t)
+ '(cfs--fontsize-steps '(5 4 4) t)
  '(custom-safe-themes
-   (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+   '("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))
  '(package-selected-packages
-   (quote
-    (theme-solarized solarized-theme idris-mode haskell-mode openwith chinese-fonts-setup flx-ido scala-mode2 magit evil dired+ sparql-mode xclip dsvn ein jedi-direx jedi epc python-mode tidy ac-math auto-complete markdown-mode autopair nlinum cmake-mode auctex-latexmk auctex)))
- '(safe-local-variable-values (quote ((save-place . t)))))
+   '(theme-solarized solarized-theme idris-mode haskell-mode openwith chinese-fonts-setup flx-ido scala-mode2 magit evil dired+ sparql-mode xclip dsvn ein jedi-direx jedi epc python-mode tidy ac-math auto-complete markdown-mode autopair nlinum cmake-mode auctex-latexmk auctex))
+ '(safe-local-variable-values '((save-place . t))))

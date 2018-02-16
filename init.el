@@ -48,17 +48,20 @@
                                   dsvn
                                   xclip
                                   sparql-mode
-                                  dired+
+;                                  dired+
                                   evil
 								  magit
 ;								  tabbar
 ;								  tabbar-ruler
 ;								  scala-mode2
 								  flx-ido
-								  chinese-fonts-setup
+								  cnfonts
 								  openwith
 								  haskell-mode
 								  idris-mode
+								  neotree
+								  all-the-icons all-the-icons-dired
+								  powerline
                                   )
   "A list of packages to ensure are installed at launch.")
 
@@ -82,6 +85,11 @@
 (require 'ibuf-ext)
 (add-to-list 'ibuffer-never-show-predicates "^\\*")
 
+(require 'all-the-icons)
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(all-the-icons-octicon "file-binary")  ;; GitHub Octicon for Binary File
+(all-the-icons-faicon  "cogs")         ;; FontAwesome icon for cogs
+(all-the-icons-wicon   "tornado")      ;; Weather Icon for tornado
 
 (setq default-directory (concat (getenv "HOME") "/"))
 
@@ -112,14 +120,18 @@
 ;; ;    (set-default-font "SourceCodePro 13")
 ;;   )
 
-(load-theme 'solarized-dark t)
+; (load-theme 'solarized-dark t)
 
-(require 'chinese-fonts-setup)
+(require 'cnfonts)
 (cnfonts-increase-fontsize)
 
 (require 'openwith)
 (openwith-mode t)
-(setq openwith-associations '(("\\.pdf\\'" "open" (file))))
+(setq openwith-associations
+      (list (list (openwith-make-extension-regexp '("pdf" "docx" "pptx"))
+                  "open" '(file))
+            (list (openwith-make-extension-regexp '("flac" "mp3" "wav"))
+                  "open" '(file)) ) )
 
 (show-paren-mode 1)
 (menu-bar-mode 1) 
@@ -215,6 +227,10 @@ FILE has been displayed."
 ;; Magit rules!
 (global-set-key (kbd "C-x g") 'magit-status)
 
+
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -280,7 +296,10 @@ FILE has been displayed."
  ;     (add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
  ;     (require 'powerline) 
 ;      )
-;)
+										;)
+
+(require 'powerline)
+(powerline-default-theme)
 
 ; <http://stackoverflow.com/questions/4076360/error-in-dired-sorting-on-os-x>o
 (when (eq system-type 'darwin)
