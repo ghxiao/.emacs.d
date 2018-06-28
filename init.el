@@ -128,8 +128,8 @@
 (require 'openwith)
 (openwith-mode t)
 (setq openwith-associations
-      (list (list (openwith-make-extension-regexp '("pdf" "docx" "pptx"))
-                  "open" '(file))
+      (list (list (openwith-make-extension-regexp '("pdf" "key" "pages" "doc" "ppt" "xls" "docx" "pptx" "xlsx"))
+                  "Open" '(file))
             (list (openwith-make-extension-regexp '("flac" "mp3" "wav"))
                   "open" '(file)) ) )
 
@@ -231,6 +231,33 @@ FILE has been displayed."
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
 
+; <https://www.emacswiki.org/emacs/MoveLine>
+(defun move-line (n)
+  "Move the current line up or down by N lines."
+  (interactive "p")
+  (setq col (current-column))
+  (beginning-of-line) (setq start (point))
+  (end-of-line) (forward-char) (setq end (point))
+  (let ((line-text (delete-and-extract-region start end)))
+    (forward-line n)
+    (insert line-text)
+    ;; restore point to original column in moved line
+    (forward-line -1)
+    (forward-char col)))
+
+(defun move-line-up (n)
+  "Move the current line up by N lines."
+  (interactive "p")
+  (move-line (if (null n) -1 (- n))))
+
+(defun move-line-down (n)
+  "Move the current line down by N lines."
+  (interactive "p")
+  (move-line (if (null n) 1 n)))
+
+(global-set-key (kbd "M-<up>") 'move-line-up)
+(global-set-key (kbd "M-<down>") 'move-line-down)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -317,6 +344,19 @@ FILE has been displayed."
 (prefer-coding-system 'utf-8)
 (setenv "LANG" "en_US.UTF-8")
 
+;; scroll one line at a time (less "jumpy" than defaults)
+
+;; one line at a time
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+
+;; don't accelerate scrolling
+(setq mouse-wheel-progressive-speed nil) 
+
+;; scroll window under mouse
+(setq mouse-wheel-follow-mouse 't) 
+
+;; keyboard scroll one line at a time
+(setq scroll-step 1) 
 
 
 ;; Hide DOT files with M-o
